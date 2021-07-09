@@ -1,31 +1,21 @@
 # This file should be stored in C:\Users\maket\OneDrive\Documents\WindowsPowerShell
 
-Set-Location C:\Developer
+#SetUp
+#Add folder to visual studios to path
 
-Set-Alias -Name dev -Value DevShortcut
-Set-Alias -Name repo -Value RepoShortcut
-Set-Alias -Name profile -Value ProfileShortcut
-Set-Alias -Name vis -Value devenv
+#Environmental Variables
+# JB_USER_PATH C:\Users\maket
+# JB_DEVELOPER_PATH C:\Developer
 
-#Temp
-
-Function amongus {
-    Invoke-Item "$env:amongus\Among Us.exe"
-} 
-
-# Keep
-
-Function DevShortcut {
-    Set-Location "C:\Developer";
+Set-Alias -Name dev -Value Set-Location-Profile
+Function dev {
+    Set-Location $env:JB_DEVELOPER_PATH;
 }
 
-Function RepoShortcut {
-    Set-Location "C:\Users\maket\Source\Repos";
-}
-
-Function ProfileShortcut {
-    Invoke-Expression "& `"C:\Users\maket\AppData\Local\Programs\Microsoft VS Code\bin\code.cmd`" C:\Users\maket\OneDrive\Documents\WindowsPowerShell";
-    Set-Location "C:\Users\maket\OneDrive\Documents\WindowsPowerShell";
+Set-Alias -Name profile -Value Invoke-Profile
+Function Invoke-Profile {
+    Invoke-Expression "& `"$env:JB_USER_PATH\AppData\Local\Programs\Microsoft VS Code\bin\code.cmd`" $env:OneDriveConsumer\Documents\WindowsPowerShell";
+    Set-Location "$env:OneDriveConsumer\Documents\WindowsPowerShell";
 }
 
 Function Test-Administrator  
@@ -35,7 +25,7 @@ Function Test-Administrator
     
     if($administrator)
     {
-        Write-Host  "You are in " -NoNewline;
+        Write-Host "You are in " -NoNewline;
         Write-Host "Administrator Mode!" -ForegroundColor Green -BackgroundColor Black;
     }
     else 
@@ -44,12 +34,8 @@ Function Test-Administrator
     }
 }
 
-Test-Administrator
-Get-ExecutionPolicy -List
-
-# Program Shortcuts
-
-Function leet
+Set-Alias -Name leet -Value Invoke-Leet
+Function Invoke-Leet
 {
     [system.Diagnostics.Process]::Start("chrome","https://music.youtube.com/playlist?list=PLHL8izsb61I1FVKr1SPmGbttVsq1_f3Lc");
     [system.Diagnostics.Process]::Start("chrome","https://leetcode.com/explore/interview/card/microsoft/");
@@ -57,3 +43,12 @@ Function leet
     Start-Process devenv;
     Set-Location C:\Developer\leet
 }
+
+Set-Alias -Name op -Value Open-PowerShell
+function Open-PowerShell
+{
+    Set-Location C:\Developer
+    Test-Administrator
+    Get-ExecutionPolicy -List
+}
+Open-PowerShell
