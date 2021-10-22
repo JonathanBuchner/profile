@@ -8,8 +8,8 @@
 # JB_DEVELOPER_PATH C:\Developer
 
 Set-Alias -Name dev -Value Set-Location-Profile
-Function dev {
-    Set-Location $env:JB_DEVELOPER_PATH;
+Function Set-Location-Profile {
+    Set-Location "$env:JB_DEVELOPER_PATH";
 }
 
 Set-Alias -Name profile -Value Invoke-Profile
@@ -44,10 +44,45 @@ Function Invoke-Leet
     Set-Location C:\Developer\leet
 }
 
+Set-Alias -Name ic1 -Value Invoke-ic1
+Function Invoke-ic1
+{
+    [system.Diagnostics.Process]::Start("chrome","https://music.youtube.com/playlist?list=PLHL8izsb61I0iF59pGUOjtwAYcLkpuVDa");
+    [system.Diagnostics.Process]::Start("chrome","https://github.com/Leap-Internal-Program");
+    [system.Diagnostics.Process]::Start("chrome","https://github.com/JonathanBuchner?tab=repositories");
+    [system.Diagnostics.Process]::Start("chrome","https://www.linkedin.com/learning/me");
+    Set-Location C:\Developer\Organization-leap-internal
+}
+
+
+Set-Alias -Name netapp -Value Make-ConsoleTestApp
+Function Make-ConsoleTestApp ($sln_name, $project_name, $project_test_name)
+{
+    dotnet new sln -n $sln_name
+    dotnet new console -o $project_name
+    dotnet new mstest -o $project_test_name
+    dotnet sln "$sln_name.sln" add "$project_name\$project_name.csproj"
+    dotnet sln "$sln_name.sln" add "$project_test_name\$project_test_name.csproj"
+    dotnet add "$project_test_name\$project_test_name.csproj" reference "$project_name\$project_name.csproj"
+    dotnet new gitignore
+}
+
+# Temp
+Function makedoc {
+    
+    param (
+        $from 
+    )
+
+    pandoc -f markdown -t docx --data-dir=C:\Users\maket\AppData\Roaming\Microsoft\Templates $from -o mydoc1.docx
+}
+
+
+# Execute on startup
 Set-Alias -Name op -Value Open-PowerShell
 function Open-PowerShell
 {
-    Set-Location C:\Developer
+    #Set-Location C:\Developer
     Test-Administrator
     Get-ExecutionPolicy -List
 }
