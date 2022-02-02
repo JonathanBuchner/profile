@@ -7,17 +7,17 @@
 # JB_USER_PATH C:\Users\maket
 # JB_DEVELOPER_PATH C:\Developer
 
-Set-Alias -Name dev -Value Set-Location-Profile
 Function Set-Location-Profile {
     Set-Location "$env:JB_DEVELOPER_PATH";
 }
 
+Write-Host "$env:JB_USER_PATH\Documents\WindowsPowerShell\profile.ps1"
+
 Set-Alias -Name profile -Value Invoke-Profile
 Function Invoke-Profile {
-    Invoke-Expression "& `"$env:JB_USER_PATH\AppData\Local\Programs\Microsoft VS Code\bin\code.cmd`" $env:OneDriveConsumer\Documents\WindowsPowerShell";
-    Set-Location "$env:OneDriveConsumer\Documents\WindowsPowerShell";
+    Invoke-Expression "& `"$env:JB_USER_PATH\AppData\Local\Programs\Microsoft VS Code\bin\code.cmd`" $env:JB_USER_PATH\OneDrive\Documents\WindowsPowerShell\profile.ps1";
+    Set-Location "$env:JB_USER_PATH\OneDrive\Documents\WindowsPowerShell";
 }
-
 Function Test-Administrator  
 {  
     $user = [Security.Principal.WindowsIdentity]::GetCurrent();
