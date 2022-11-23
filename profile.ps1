@@ -7,17 +7,19 @@
 # JB_USER_PATH C:\Users\maket
 # JB_DEVELOPER_PATH C:\Developer
 
-Function Set-Location-Profile {
+#Set execution policy - https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.3
+
+Set-Alias -Name dev -Value Set-Dev-Location
+Function Set-Dev-Location {
     Set-Location "$env:JB_DEVELOPER_PATH";
 }
-
-Write-Host "$env:JB_USER_PATH\Documents\WindowsPowerShell\profile.ps1"
 
 Set-Alias -Name profile -Value Invoke-Profile
 Function Invoke-Profile {
     Invoke-Expression "& `"$env:JB_USER_PATH\AppData\Local\Programs\Microsoft VS Code\bin\code.cmd`" $env:JB_USER_PATH\OneDrive\Documents\WindowsPowerShell\profile.ps1";
     Set-Location "$env:JB_USER_PATH\OneDrive\Documents\WindowsPowerShell";
 }
+
 Function Test-Administrator  
 {  
     $user = [Security.Principal.WindowsIdentity]::GetCurrent();
@@ -44,17 +46,6 @@ Function Invoke-Leet
     Set-Location C:\Developer\leet
 }
 
-Set-Alias -Name ic1 -Value Invoke-ic1
-Function Invoke-ic1
-{
-    [system.Diagnostics.Process]::Start("chrome","https://music.youtube.com/playlist?list=PLHL8izsb61I0iF59pGUOjtwAYcLkpuVDa");
-    [system.Diagnostics.Process]::Start("chrome","https://github.com/Leap-Internal-Program");
-    [system.Diagnostics.Process]::Start("chrome","https://github.com/JonathanBuchner?tab=repositories");
-    [system.Diagnostics.Process]::Start("chrome","https://www.linkedin.com/learning/me");
-    Set-Location C:\Developer\Organization-leap-internal
-}
-
-
 Set-Alias -Name netapp -Value Make-ConsoleTestApp
 Function Make-ConsoleTestApp ($sln_name, $project_name, $project_test_name)
 {
@@ -67,16 +58,6 @@ Function Make-ConsoleTestApp ($sln_name, $project_name, $project_test_name)
     dotnet new gitignore
 }
 
-# Temp
-Function makedoc {
-    
-    param (
-        $from 
-    )
-
-    pandoc -f markdown -t docx --data-dir=C:\Users\maket\AppData\Roaming\Microsoft\Templates $from -o mydoc1.docx
-}
-
 
 # Execute on startup
 Set-Alias -Name op -Value Open-PowerShell
@@ -86,4 +67,5 @@ function Open-PowerShell
     Test-Administrator
     Get-ExecutionPolicy -List
 }
+
 Open-PowerShell
