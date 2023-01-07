@@ -14,6 +14,11 @@ Function Set-Dev-Location {
     Set-Location "$env:JB_DEVELOPER_PATH";
 }
 
+Set-Alias -Name icloud -Value Set-ICloud-Location
+Function Set-ICloud-Location {
+    Set-Location "$env:JB_ICLOUD_PATH";
+}
+
 Set-Alias -Name profile -Value Invoke-Profile
 Function Invoke-Profile {
     Invoke-Expression "& `"$env:JB_USER_PATH\AppData\Local\Programs\Microsoft VS Code\bin\code.cmd`" $env:JB_USER_PATH\OneDrive\Documents\WindowsPowerShell\profile.ps1";
