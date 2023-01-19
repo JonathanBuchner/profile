@@ -6,6 +6,8 @@
 #Environmental Variables
 # JB_USER_PATH C:\Users\maket
 # JB_DEVELOPER_PATH C:\Developer
+# JB_ICLOUD_PATH: 
+# JB_LEAP_PATH
 
 #Set execution policy - https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.3
 
@@ -16,14 +18,24 @@ Function Set-Dev-Location {
 
 Set-Alias -Name icloud -Value Set-ICloud-Location
 Function Set-ICloud-Location {
-    Set-Location "$env:JB_ICLOUD_PATH";
+    Set-Location "$env:JB_DEVELOPER_PATH";
 }
 
-Set-Alias -Name profile -Value Invoke-Profile
-Function Invoke-Profile {
-    Invoke-Expression "& `"$env:JB_USER_PATH\AppData\Local\Programs\Microsoft VS Code\bin\code.cmd`" $env:JB_USER_PATH\OneDrive\Documents\WindowsPowerShell\profile.ps1";
-    Set-Location "$env:JB_USER_PATH\OneDrive\Documents\WindowsPowerShell";
+Set-Alias -Name leap -Value Set-Leap-Location
+Function Set-Leap-Location {
+    Set-Location "$env:JB_LEAP_PATH";
 }
+
+Set-Alias -Name e20 -Value Set-E20-Location
+Function Set-E20-Location {
+    Set-Location "$env:JB_E20_PATH";
+}
+
+# Set-Alias -Name profile -Value Invoke-Profile
+# Function Invoke-Profile {
+#     Invoke-Expression "& `"$env:JB_USER_PATH\AppData\Local\Programs\Microsoft VS Code\bin\code.cmd`" $env:JB_USER_PATH\OneDrive\Documents\WindowsPowerShell\profile.ps1";
+#     Set-Location "$env:JB_USER_PATH\OneDrive\Documents\WindowsPowerShell";
+# }
 
 Function Test-Administrator  
 {  
