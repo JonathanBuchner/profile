@@ -19,7 +19,7 @@ Function Set-Dev-Location {
 
 Set-Alias -Name icloud -Value Set-ICloud-Location
 Function Set-ICloud-Location {
-    Set-Location "$env:JB_DEVELOPER_PATH";
+    Set-Location "$env:JB_ICLOUD_PATH";
 }
 
 Set-Alias -Name leap -Value Set-Leap-Location
