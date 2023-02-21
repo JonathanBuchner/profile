@@ -70,6 +70,21 @@ Function Invoke-Leet
     Set-Location C:\Developer\leet
 }
 
+Set-Alias -Name github -Value Invoke-GitHub
+
+Function Invoke-GitHub
+{
+    [system.Diagnostics.Process]::Start("chrome","https://github.com/JonathanBuchner?tab=repositories");
+}
+
+Set-Alias -Name ce20 -Value Invoke-E20
+
+Function Invoke-E20
+{
+    [system.Diagnostics.Process]::Start("chrome","https://canvas.harvard.edu/courses/112512");
+    [system.Diagnostics.Process]::Start("chrome","https://edstem.org/us/courses/32814/discussion/");
+}
+
 Set-Alias -Name netapp -Value Make-ConsoleTestApp
 Function Make-ConsoleTestApp ($sln_name, $project_name, $project_test_name)
 {
