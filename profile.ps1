@@ -8,6 +8,7 @@
 # JB_DEVELOPER_PATH C:\Developer
 # JB_ICLOUD_PATH: 
 # JB_LEAP_PATH
+# JB_EBOOK_PATH Path To Essentials for Developers
 #Test / Removed
 
 #Set execution policy - https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.3
@@ -30,6 +31,11 @@ Function Set-Leap-Location {
 Set-Alias -Name e20 -Value Set-E20-Location
 Function Set-E20-Location {
     Set-Location "$env:JB_E20_PATH";
+}
+
+Set-Alias -Name ebook -Value Set-EBOOK-Location
+Function Set-EBOOK-Location {
+    Set-Location "$env:JB_EBOOK_PATH";
 }
 
 # Set-Alias -Name profile -Value Invoke-Profile
