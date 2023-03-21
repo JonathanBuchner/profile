@@ -60,6 +60,14 @@ Function Test-Administrator
     }
 }
 
+Set-Alias -Name media -Value Invoke-Media
+Function Invoke-Media
+{
+    [system.Diagnostics.Process]::Start("chrome","https://mail.google.com/mail/u/0/?tab=rm#inbox");
+    [system.Diagnostics.Process]::Start("chrome","https://www.linkedin.com/feed/");
+    [system.Diagnostics.Process]::Start("chrome","https://mail.proton.me/u/0/inbox");
+}
+
 Set-Alias -Name leet -Value Invoke-Leet
 Function Invoke-Leet
 {
