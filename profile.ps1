@@ -65,7 +65,7 @@ Function Invoke-Media
 {
     [system.Diagnostics.Process]::Start("chrome","https://mail.google.com/mail/u/0/?tab=rm#inbox");
     [system.Diagnostics.Process]::Start("chrome","https://www.linkedin.com/feed/");
-    [system.Diagnostics.Process]::Start("chrome","https://www.keybr.com/");
+    [system.Diagnostics.Process]::Start("chrome","https://mail.proton.me/u/0/inbox");
 }
 
 Set-Alias -Name typing -Value Invoke-Typing
@@ -73,7 +73,7 @@ Function Invoke-Typing
 {
     [system.Diagnostics.Process]::Start("chrome","https://10fastfingers.com/typing-test/english");
     [system.Diagnostics.Process]::Start("chrome","https://www.ratatype.com/");
-    [system.Diagnostics.Process]::Start("chrome","https://mail.proton.me/u/0/inbox");
+    [system.Diagnostics.Process]::Start("chrome","https://www.keybr.com/");
 }
 
 Set-Alias -Name leet -Value Invoke-Leet
