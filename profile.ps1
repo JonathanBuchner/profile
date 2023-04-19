@@ -101,6 +101,16 @@ Function Invoke-E20
     [system.Diagnostics.Process]::Start("chrome","https://edstem.org/us/courses/32814/discussion/");
 }
 
+Set-Alias -Name life -Value Invoke-Life
+
+Function Invoke-Life
+{
+    Invoke-Media
+    Invoke-Typing
+    Invoke-Leet
+    Invoke-E20
+}
+
 Set-Alias -Name netapp -Value Make-ConsoleTestApp
 Function Make-ConsoleTestApp ($sln_name, $project_name, $project_test_name)
 {
