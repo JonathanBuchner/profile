@@ -133,4 +133,117 @@ function Open-PowerShell
     Get-ExecutionPolicy -List
 }
 
+
+### Envision
+Set-Alias -Name src -Value Set-src-Location
+Function Set-src-Location {
+    Set-Location "C:\Source\Faraday";
+}
+
+Set-Alias -Name c2c -Value Set-c2c-Location
+Function Set-c2c-Location {
+    Set-Location "C:\Source\Faraday\src\clients\c2c";
+}
+
+Set-Alias -Name env -Value Set-env-Location
+Function Set-env-Location {
+    Set-Location "C:\Program Files (x86)\Envision Telephony";
+}
+
+Set-Alias -Name logs -Value Open-logs
+Function Open-logs {
+    & "C:\Program Files (x86)\Envision Telephony\Baretailpro\baretailpro.exe"  "C:\Users\JonathanBuchner\AppData\Roaming\Envision Telephony\D4\logs\D4.log"
+    & "C:\Program Files (x86)\Envision Telephony\Baretailpro\baretailpro.exe"  "C:\Program Files (x86)\Envision Telephony\Envision API\EnvsionAPI.log"
+    & "C:\Program Files (x86)\Envision Telephony\Baretailpro\baretailpro.exe"  "C:\Program Files (x86)\Envision Telephony\Envision Click2Coach\C2cAPI.log"
+    & "C:\Program Files (x86)\Envision Telephony\Baretailpro\baretailpro.exe"  "C:\Program Files (x86)\Envision Telephony\Envision Click2Coach\UploadSvc\UploadService.log"
+}
+
+
+
+Set-Alias -Name d5 -Value Invoke-D5
+Function  Invoke-D5 ($cmd, $time, $media_type, $recording_type)
+{
+
+    if ($cmd -eq $null)
+    {
+        $cmd  = 'folder'
+    }
+
+    if ($media_type -eq $null)
+    {
+        $media_type = 'audio,video'
+    }
+
+    if ($recording_type -eq $null)
+    {
+        $recording_type = 'FTR'
+    }
+
+    #Open log
+    if ($cmd -eq 'log')
+    {
+        & "C:\Program Files (x86)\Envision Telephony\Baretailpro\baretailpro.exe"  "C:\Users\JonathanBuchner\AppData\Roaming\Envision Telephony\D4\logs\D4.log"
+    }
+
+    #Stop recording
+    if ($cmd -eq 'end')
+    {
+        Echo "Attempting to STOP D5 $recording_type Recording..."
+    
+        $postParams = @{recording_type =$recording_type}
+        Invoke-WebRequest -Uri http://localhost:36847/api/capture/end -Method POST -Body $postParams
+    }
+
+    #Start recording
+    if (($cmd -eq 'rec') -or ($cmd -eq 'record'))
+    {
+        Echo "Attempting to start D5 $recording_type $media_type Recording..."
+    
+        $postParams = @{recording_type =$recording_type; media_type=$media_type}
+        Invoke-WebRequest -Uri http://localhost:36847/api/capture/start -Method POST -Body $postParams
+        
+        if($time -ne $null)
+        {
+            if ($time -gt 0)
+            {
+                for ($t = $time; $t -gt 0; $t--)
+                {
+                    Echo "D5 Recording will end $t seconds..."
+                    Start-Sleep -Seconds 1
+                }
+    
+                d5 'end' $time $media_type $recording_type
+            }
+        }
+    }
+
+    # Start D5
+    if ($cmd -eq 'start')
+    {
+        Echo "Starting D5..."
+        Start-Process -FilePath "C:\Program Files (x86)\Envision Telephony\Envision D4\D4.exe"
+    }
+
+    #Stop D5
+    if ($cmd -eq 'stop')
+    {
+        Echo "Stopping D5..."
+        Stop-Process -Name "d4"   
+    }
+
+    if ($cmd -eq 'reset')
+    {
+        d5 'stop'
+        Start-Sleep -Seconds 2
+        d5 'start'
+
+    }
+
+    if ($cmd -eq 'folder')
+    {
+        Set-Location "C:\Users\JonathanBuchner\AppData\Roaming\Envision Telephony\D4"  
+    }
+}
+
+## Start at open
 Open-PowerShell
