@@ -158,6 +158,12 @@ Function Open-logs {
     & "C:\Program Files (x86)\Envision Telephony\Baretailpro\baretailpro.exe"  "C:\Program Files (x86)\Envision Telephony\Envision Click2Coach\UploadSvc\UploadService.log"
 }
 
+Set-Alias -Name rdp -Value Open-Rdp
+Function Open-Rdp
+{
+    mstsc /v:Desktop-2CDMOIL /f
+}
+
 
 
 Set-Alias -Name d5 -Value Invoke-D5
