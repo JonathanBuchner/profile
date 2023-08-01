@@ -101,6 +101,13 @@ Function Invoke-E20
     [system.Diagnostics.Process]::Start("chrome","https://edstem.org/us/courses/32814/discussion/");
 }
 
+Set-Alias -Name e10a -Value Invoke-E10a
+
+Function Invoke-E10a
+{
+    Set-Location "C:\Developer\learn\harvard\CSCI E-10A\Building Java Programs\src";
+}
+
 Set-Alias -Name life -Value Invoke-Life
 
 Function Invoke-Life
