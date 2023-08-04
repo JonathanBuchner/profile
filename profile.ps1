@@ -177,17 +177,17 @@ Set-Alias -Name d5 -Value Invoke-D5
 Function  Invoke-D5 ($cmd, $time, $media_type, $recording_type)
 {
 
-    if ($cmd -eq $null)
+    if ($null -eq $cmd)
     {
         $cmd  = 'folder'
     }
 
-    if ($media_type -eq $null)
+    if ($null -eq $media_type)
     {
         $media_type = 'audio,video'
     }
 
-    if ($recording_type -eq $null)
+    if ($null -eq $recording_type)
     {
         $recording_type = 'FTR'
     }
@@ -201,7 +201,7 @@ Function  Invoke-D5 ($cmd, $time, $media_type, $recording_type)
     #Stop recording
     if ($cmd -eq 'end')
     {
-        Echo "Attempting to STOP D5 $recording_type Recording..."
+        Write-Output "Attempting to STOP D5 $recording_type Recording..."
     
         $postParams = @{recording_type =$recording_type}
         Invoke-WebRequest -Uri http://localhost:36847/api/capture/end -Method POST -Body $postParams
@@ -210,18 +210,18 @@ Function  Invoke-D5 ($cmd, $time, $media_type, $recording_type)
     #Start recording
     if (($cmd -eq 'rec') -or ($cmd -eq 'record'))
     {
-        Echo "Attempting to start D5 $recording_type $media_type Recording..."
+        Write-Output "Attempting to start D5 $recording_type $media_type Recording..."
     
         $postParams = @{recording_type =$recording_type; media_type=$media_type}
         Invoke-WebRequest -Uri http://localhost:36847/api/capture/start -Method POST -Body $postParams
         
-        if($time -ne $null)
+        if($null -ne $time)
         {
             if ($time -gt 0)
             {
-                for ($t = $time; $t -gt 0; $t--)
+                for ($t = $time -as [int]; $t -gt 0; $t--)
                 {
-                    Echo "D5 Recording will end $t seconds..."
+                    Write-Output "D5 Recording will end $t seconds..."
                     Start-Sleep -Seconds 1
                 }
     
@@ -230,27 +230,36 @@ Function  Invoke-D5 ($cmd, $time, $media_type, $recording_type)
         }
     }
 
-    # Start D5
-    if ($cmd -eq 'start')
+    if ($cmd -eq "cont")
     {
-        Echo "Starting D5..."
-        Start-Process -FilePath "C:\Program Files (x86)\Envision Telephony\Envision D4\D4.exe"
+        if($null -eq $time)
+        {
+            $time = 30;
+        }
+
+        $sec = $time -as [int]
+
+        while($true)
+        {
+            d5 "rec" $sec $media_type $recording_type
+            
+            Start-Sleep -Seconds $sec
+            Write-Output "Will start another recording in 5 seconds..."
+            Start-Sleep -Seconds 5
+        }
     }
 
-    #Stop D5
-    if ($cmd -eq 'stop')
-    {
-        Echo "Stopping D5..."
-        Stop-Process -Name "d4"   
-    }
-
-    if ($cmd -eq 'reset')
-    {
-        d5 'stop'
-        Start-Sleep -Seconds 2
-        d5 'start'
-
-    }
+    
+    # #Start recording
+    # if ($cmd -eq 'cont')
+    # {
+    #     while($true)
+    #     {
+    #         d5 'rec' $time, $media_type, $recording_type
+            
+    #         Start-Sleep -Seconds  ($time + 20)
+    #     }    
+    # }
 
     if ($cmd -eq 'folder')
     {
