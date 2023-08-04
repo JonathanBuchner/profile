@@ -286,6 +286,14 @@ Function  Invoke-Build-Target ($target)
     {
         Start-Process -FilePath "cmd.exe" -ArgumentList '/c "C:\Developer\scripts\ant\c2c.bat"'
     }
+    elseif ($target -eq "utils")
+    {
+        Start-Process -FilePath "cmd.exe" -ArgumentList '/c "C:\Developer\scripts\ant\utils.bat"'
+    }
+    elseif ($target -eq "log")
+    {
+        code "C:\Source\Faraday\BuildLog.txt"
+    }
     elseif ($null -eq $target )
     {
         Write-Output "No build target provided."
