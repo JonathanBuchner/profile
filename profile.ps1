@@ -271,5 +271,30 @@ Function  Invoke-D5 ($cmd, $time, $media_type, $recording_type)
     }
 }
 
+Set-Alias -Name target -Value Invoke-Build-Target
+Function  Invoke-Build-Target ($target)
+{
+    if($target -eq "player")
+    {
+        Start-Process -FilePath "cmd.exe" -ArgumentList '/c "C:\Developer\scripts\ant\player.bat"'
+    }
+    elseif ($target -eq "dal")
+    {
+        Start-Process -FilePath "cmd.exe" -ArgumentList '/c "C:\Developer\scripts\ant\dal.bat"'
+    }
+    elseif ($target -eq "c2c")
+    {
+        Start-Process -FilePath "cmd.exe" -ArgumentList '/c "C:\Developer\scripts\ant\c2c.bat"'
+    }
+    elseif ($null -eq $target )
+    {
+        Write-Output "No build target provided."
+    }
+    else 
+    {
+        Write-Output "Target '$target' not recognized."
+    }
+}
+
 ## Start at open
 Open-PowerShell
