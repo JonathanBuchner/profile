@@ -188,7 +188,7 @@ Function  Invoke-D5 ($cmd, $time, $media_type, $recording_type)
     }
 
     if ($recording_type -eq $null)
-    {
+    {   
         $recording_type = 'FTR'
     }
 
