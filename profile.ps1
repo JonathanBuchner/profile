@@ -232,34 +232,38 @@ Function  Invoke-D5 ($cmd, $time, $media_type, $recording_type)
 
     if ($cmd -eq "cont")
     {
-        if($null -eq $time)
-        {
-            $time = 30;
-        }
-
-        $sec = $time -as [int]
-
         while($true)
         {
+            $sec = Get-Random -Maximum 100
+
+            if ($sec -lt 1)
+            {
+                $sec = 7000
+            }
+            elseif ($sec -lt 2) {
+                $sec = 3600
+            }
+            elseif ($sec -lt 3) {
+                $sec = 1200
+            }
+            elseif ($sec -lt 4) {
+                $sec = 200
+            }
+            elseif ($sec -lt 10) {
+                $sec = 120
+            }
+            elseif ($sec -gt 60) {
+                $sec = 15
+            }
+
+            Write-Output "Starting continuous record for $sec."
             d5 "rec" $sec $media_type $recording_type
             
-            Start-Sleep -Seconds $sec
+            # Start-Sleep -Seconds $sec
             Write-Output "Will start another recording in 5 seconds..."
             Start-Sleep -Seconds 5
         }
     }
-
-    
-    # #Start recording
-    # if ($cmd -eq 'cont')
-    # {
-    #     while($true)
-    #     {
-    #         d5 'rec' $time, $media_type, $recording_type
-            
-    #         Start-Sleep -Seconds  ($time + 20)
-    #     }    
-    # }
 
     if ($cmd -eq 'folder')
     {
