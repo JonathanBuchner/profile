@@ -171,8 +171,6 @@ Function Open-Rdp
     mstsc /v:Desktop-2CDMOIL /f
 }
 
-
-
 Set-Alias -Name d5 -Value Invoke-D5
 Function  Invoke-D5 ($cmd, $time, $media_type, $recording_type)
 {
@@ -238,13 +236,13 @@ Function  Invoke-D5 ($cmd, $time, $media_type, $recording_type)
 
             if ($sec -lt 1)
             {
-                $sec = 7000
+                $sec = 1000
             }
             elseif ($sec -lt 2) {
-                $sec = 3600
+                $sec = 600
             }
             elseif ($sec -lt 3) {
-                $sec = 1200
+                $sec = 500
             }
             elseif ($sec -lt 4) {
                 $sec = 200
@@ -303,6 +301,24 @@ Function  Invoke-Build-Target ($target)
         Write-Output "Target '$target' not recognized."
     }
 }
+
+Set-Alias -Name acc -Value Invoke-Account-List
+
+Function Invoke-Account-List
+{
+    $contents = Get-Content -Path "C:\Program Files (x86)\Envision Telephony\accounts.md"
+
+    Write-Output $contents [$i]
+}
+
+Set-Alias -Name guid -Value Invoke-Create-Guid
+
+Function Invoke-Create-Guid
+{
+    [guid]::NewGuid()
+}
+
+
 
 ## Start at open
 Open-PowerShell
