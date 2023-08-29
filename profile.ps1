@@ -87,14 +87,12 @@ Function Invoke-Leet
 }
 
 Set-Alias -Name github -Value Invoke-GitHub
-
 Function Invoke-GitHub
 {
     [system.Diagnostics.Process]::Start("chrome","https://github.com/JonathanBuchner?tab=repositories");
 }
 
 Set-Alias -Name ce20 -Value Invoke-E20
-
 Function Invoke-E20
 {
     [system.Diagnostics.Process]::Start("chrome","https://canvas.harvard.edu/courses/112512");
@@ -102,14 +100,19 @@ Function Invoke-E20
 }
 
 Set-Alias -Name e10a -Value Invoke-E10a
-
 Function Invoke-E10a
 {
     Set-Location "C:\Developer\learn\harvard\CSCI E-10A\Building Java Programs\src";
 }
 
-Set-Alias -Name life -Value Invoke-Life
+Set-Alias -Name e10b -Value Invoke-E10b
 
+Function Invoke-E10b
+{
+    Set-Location "C:\Developer\learn\harvard\CSCI E-10B\src";
+}
+
+Set-Alias -Name life -Value Invoke-Life
 Function Invoke-Life
 {
     Invoke-Media
