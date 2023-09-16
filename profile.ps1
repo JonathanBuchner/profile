@@ -80,7 +80,7 @@ Set-Alias -Name leet -Value Invoke-Leet
 Function Invoke-Leet
 {
     [system.Diagnostics.Process]::Start("chrome","https://music.youtube.com/playlist?list=PLHL8izsb61I1FVKr1SPmGbttVsq1_f3Lc");
-    [system.Diagnostics.Process]::Start("chrome","https://leetcode.com/explore/");
+    [system.Diagnostics.Process]::Start("chrome","https://leetcode.com/problemset/all/");
     [system.Diagnostics.Process]::Start("chrome","https://github.com/JonathanBuchner?tab=repositories");
     # Start-Process devenv.exe -Verb runAs
     Set-Location C:\Developer\leet
