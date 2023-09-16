@@ -72,7 +72,7 @@ Set-Alias -Name typing -Value Invoke-Typing
 Function Invoke-Typing
 {
     [system.Diagnostics.Process]::Start("chrome","https://10fastfingers.com/typing-test/english");
-    [system.Diagnostics.Process]::Start("chrome","https://www.ratatype.com/");
+    [system.Diagnostics.Process]::Start("chrome","https://www.ratatype.com/u5893182/education-results/");
     [system.Diagnostics.Process]::Start("chrome","https://www.keybr.com/");
 }
 
@@ -80,9 +80,9 @@ Set-Alias -Name leet -Value Invoke-Leet
 Function Invoke-Leet
 {
     [system.Diagnostics.Process]::Start("chrome","https://music.youtube.com/playlist?list=PLHL8izsb61I1FVKr1SPmGbttVsq1_f3Lc");
-    [system.Diagnostics.Process]::Start("chrome","https://leetcode.com/explore/interview/card/microsoft/");
+    [system.Diagnostics.Process]::Start("chrome","https://leetcode.com/explore/");
     [system.Diagnostics.Process]::Start("chrome","https://github.com/JonathanBuchner?tab=repositories");
-    Start-Process devenv.exe -Verb runAs
+    # Start-Process devenv.exe -Verb runAs
     Set-Location C:\Developer\leet
 }
 
