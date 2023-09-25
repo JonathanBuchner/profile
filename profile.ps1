@@ -200,20 +200,20 @@ Function  Invoke-D5 ($cmd, $time, $media_type, $recording_type)
     }
 
     #Stop recording
-    if ($cmd -eq 'end')
+    elseif ($cmd -eq 'end' -or $cmd -eq 'stop')
     {
         Write-Output "Attempting to STOP D5 $recording_type Recording..."
     
-        $postParams = @{recording_type =$recording_type}
+        $postParams = @{recording_type = $recording_type}
         Invoke-WebRequest -Uri http://localhost:36847/api/capture/end -Method POST -Body $postParams
     }
 
     #Start recording
-    if (($cmd -eq 'rec') -or ($cmd -eq 'record'))
+    elseif (($cmd -eq 'rec') -or ($cmd -eq 'record') -or $cmd -eq 'start')
     {
         Write-Output "Attempting to start D5 $recording_type $media_type Recording..."
     
-        $postParams = @{recording_type =$recording_type; media_type=$media_type}
+        $postParams = @{recording_type = $recording_type; media_type = $media_type}
         Invoke-WebRequest -Uri http://localhost:36847/api/capture/start -Method POST -Body $postParams
         
         if($null -ne $time)
@@ -231,7 +231,7 @@ Function  Invoke-D5 ($cmd, $time, $media_type, $recording_type)
         }
     }
 
-    if ($cmd -eq "cont")
+    elseif ($cmd -eq "cont")
     {
         while($true)
         {
@@ -266,9 +266,23 @@ Function  Invoke-D5 ($cmd, $time, $media_type, $recording_type)
         }
     }
 
-    if ($cmd -eq 'folder')
+    elseif ($cmd -eq 'folder')
     {
         Set-Location "C:\Users\JonathanBuchner\AppData\Roaming\Envision Telephony\D4"  
+    }
+
+    elseif ($cmd -eq 'tag')
+    {
+        $tagname = Read-Host -Prompt "Tag name"
+        $tagvalue = Read-Host -Prompt "Tag value"
+
+        $postParams = @{$tagname = $tagvalue};
+        Invoke-WebRequest -Uri http://localhost:36847/api/tagging/set -Method POST -Body $postParams
+    }
+
+    else
+    {
+        Write-Output "Did not recognize commad $cmd."
     }
 }
 
