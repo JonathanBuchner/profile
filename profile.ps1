@@ -211,6 +211,7 @@ Function  Invoke-D5 ($cmd, $time, $media_type, $recording_type)
     #Start recording
     elseif (($cmd -eq 'rec') -or ($cmd -eq 'record') -or $cmd -eq 'start')
     {
+        d5 'who'
         Write-Output "Attempting to start D5 $recording_type $media_type Recording..."
     
         $postParams = @{recording_type = $recording_type; media_type = $media_type}
@@ -280,9 +281,31 @@ Function  Invoke-D5 ($cmd, $time, $media_type, $recording_type)
         Invoke-WebRequest -Uri http://localhost:36847/api/tagging/set -Method POST -Body $postParams
     }
 
+    elseif ($cmd -eq 'who')
+    {
+        Write-Output "Looking up D5 registry values ..."
+        
+        try 
+        {
+            $d5user = Get-ItemProperty -Path "HKCU:\Software\Envision Telephony\Envision D4\D4" -Name "C2cLogin"
+            $d5uploadPath = Get-ItemProperty -Path "HKCU:\Software\Envision Telephony\Envision D4\D4" -Name "UploadPath"
+            $d5Domain = Get-ItemProperty -Path "HKLM:\SOFTWARE\WOW6432Node\Envision Telephony\Envision D4\D4" -Name "Domain"
+            $d5AppId = Get-ItemProperty -Path "HKLM:\SOFTWARE\WOW6432Node\Envision Telephony\Envision D4\D4" -Name "AppId"
+
+            Write-Output " - User: $($d5User.C2cLogin)"
+            Write-Output " - Domain: $($d5Domain.Domain)"
+            Write-Output " - App id: $($d5AppId.AppId)"
+            Write-Output " - Upload path: $($d5uploadPath.UploadPath)"
+        }
+        catch
+        {
+            Write-Output "Cannot find values in regedit. Is D5 set up with a user logged in?"
+        }
+    }
+
     else
     {
-        Write-Output "Did not recognize commad $cmd."
+        Write-Output "Do not recognize commad '$cmd.'"
     }
 }
 
