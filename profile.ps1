@@ -38,12 +38,6 @@ Function Set-EBOOK-Location {
     Set-Location "$env:JB_EBOOK_PATH";
 }
 
-# Set-Alias -Name profile -Value Invoke-Profile
-# Function Invoke-Profile {
-#     Invoke-Expression "& `"$env:JB_USER_PATH\AppData\Local\Programs\Microsoft VS Code\bin\code.cmd`" $env:JB_USER_PATH\OneDrive\Documents\WindowsPowerShell\profile.ps1";
-#     Set-Location "$env:JB_USER_PATH\OneDrive\Documents\WindowsPowerShell";
-# }
-
 Function Test-Administrator  
 {  
     $user = [Security.Principal.WindowsIdentity]::GetCurrent();
@@ -91,6 +85,23 @@ Function Invoke-GitHub
 {
     [system.Diagnostics.Process]::Start("chrome","https://github.com/JonathanBuchner?tab=repositories");
 }
+
+# Open file and folders to update this script profile.ps1.
+Set-Alias -Name profile -Value Update-profile
+Function Update-profile
+{
+    Invoke-Item "$($env:JB_USER_PATH)\Documents\WindowsPowerShell"
+    Invoke-Item "$($env:JB_DEVELOPER_PATH)\profile\"
+    code "$($env:JB_DEVELOPER_PATH)\profile\profile.ps1"
+}
+
+# Open AppData folder
+Set-Alias -Name appdata -Value Open-AppData
+Function Open-AppData
+{
+    Invoke-Item "$($env:JB_USER_PATH)\AppData"
+}
+
 
 Set-Alias -Name ce20 -Value Invoke-E20
 Function Invoke-E20
