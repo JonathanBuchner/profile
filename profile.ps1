@@ -314,6 +314,24 @@ Function  Invoke-D5 ($cmd, $time, $media_type, $recording_type)
         }
     }
 
+    elseif ($cmd -eq 'reguser')
+    {
+        # Silently import the .reg file
+        Start-Process -Wait -FilePath "regedit.exe" -ArgumentList "/s '$($env:JB_DEVELOPER_PATH)\scripts\reg\user.reg'"
+
+        # Open regedit
+        Start-Process -FilePath "regedit.exe"       
+    }
+
+    elseif($cmd -eq 'regmach')
+    {
+         # Silently import the .reg file
+         Start-Process -Wait -FilePath "regedit.exe" -ArgumentList "/s '$($env:JB_DEVELOPER_PATH)\scripts\reg\machine.reg'"
+
+         # Open regedit.  To open second window, must use runas and specify user.
+         Start-Process -FilePath "regedit.exe"     
+    }
+
     else
     {
         Write-Output "Do not recognize commad '$cmd.'"
@@ -325,19 +343,19 @@ Function  Invoke-Build-Target ($target)
 {
     if($target -eq "player")
     {
-        Start-Process -FilePath "cmd.exe" -ArgumentList '/c "C:\Developer\scripts\ant\player.bat"'
+        Start-Process -FilePath "cmd.exe" -ArgumentList "/c '$($env:JB_DEVELOPER_PATH)\scripts\ant\player.bat'"
     }
     elseif ($target -eq "dal")
     {
-        Start-Process -FilePath "cmd.exe" -ArgumentList '/c "C:\Developer\scripts\ant\dal.bat"'
+        Start-Process -FilePath "cmd.exe" -ArgumentList "/c '$($env:JB_DEVELOPER_PATH)\scripts\ant\dal.bat'"
     }
     elseif ($target -eq "c2c")
     {
-        Start-Process -FilePath "cmd.exe" -ArgumentList '/c "C:\Developer\scripts\ant\c2c.bat"'
+        Start-Process -FilePath "cmd.exe" -ArgumentList "/c '$($env:JB_DEVELOPER_PATH)\scripts\ant\c2c.bat'"
     }
     elseif ($target -eq "utils")
     {
-        Start-Process -FilePath "cmd.exe" -ArgumentList '/c "C:\Developer\scripts\ant\utils.bat"'
+        Start-Process -FilePath "cmd.exe" -ArgumentList "/c '$($env:JB_DEVELOPER_PATH)\scripts\ant\utils.bat'"
     }
     elseif ($target -eq "log")
     {
