@@ -171,6 +171,16 @@ Function Set-env-Location {
     Set-Location "C:\Program Files (x86)\Envision Telephony";
 }
 
+Set-Alias -Name sprocs -Value Set-Location-Sprocs
+Function Set-Location-Sprocs {
+    Set-Location "C:\Source\Faraday\src\server\db\central\sprocs";
+}
+
+Set-Alias -Name dbupdates -Value Set-Location-DbUpdates
+Function Set-Location-DbUpdates {
+    Set-Location "C:\Source\Faraday\config\server\DatabaseUpdates\Common\12.0";
+}
+
 Set-Alias -Name logs -Value Open-logs
 Function Open-logs {
     & "C:\Program Files (x86)\Envision Telephony\Baretailpro\baretailpro.exe"  "C:\Users\JonathanBuchner\AppData\Roaming\Envision Telephony\D4\logs\D4.log"
@@ -307,6 +317,9 @@ Function  Invoke-D5 ($cmd, $time, $media_type, $recording_type)
             Write-Output " - Domain: $($d5Domain.Domain)"
             Write-Output " - App id: $($d5AppId.AppId)"
             Write-Output " - Upload path: $($d5uploadPath.UploadPath)"
+            Write-Output " - User registry: HKEY_CURRENT_USER\Software\Envision Telephony\Envision D4\D4";
+            Write-Output " - User registry: HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Envision Telephony\Envision D4\D4";
+
         }
         catch
         {
@@ -317,7 +330,7 @@ Function  Invoke-D5 ($cmd, $time, $media_type, $recording_type)
     elseif ($cmd -eq 'reguser')
     {
         # Silently import the .reg file
-        Start-Process -Wait -FilePath "regedit.exe" -ArgumentList "/s '$($env:JB_DEVELOPER_PATH)\scripts\reg\user.reg'"
+        Start-Process -Wait -FilePath "regedit.exe" -ArgumentList "/s `"$($env:JB_DEVELOPER_PATH)\profile\scripts\reg\user.reg`""
 
         # Open regedit
         Start-Process -FilePath "regedit.exe"       
@@ -326,7 +339,7 @@ Function  Invoke-D5 ($cmd, $time, $media_type, $recording_type)
     elseif($cmd -eq 'regmach')
     {
          # Silently import the .reg file
-         Start-Process -Wait -FilePath "regedit.exe" -ArgumentList "/s '$($env:JB_DEVELOPER_PATH)\scripts\reg\machine.reg'"
+         Start-Process -Wait -FilePath "regedit.exe" -ArgumentList "/s `"$($env:JB_DEVELOPER_PATH)\profile\scripts\reg\machine.reg`""
 
          # Open regedit.  To open second window, must use runas and specify user.
          Start-Process -FilePath "regedit.exe"     
@@ -343,19 +356,19 @@ Function  Invoke-Build-Target ($target)
 {
     if($target -eq "player")
     {
-        Start-Process -FilePath "cmd.exe" -ArgumentList "/c '$($env:JB_DEVELOPER_PATH)\scripts\ant\player.bat'"
+        Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$($env:JB_DEVELOPER_PATH)\profile\scripts\ant\player.bat`""
     }
     elseif ($target -eq "dal")
     {
-        Start-Process -FilePath "cmd.exe" -ArgumentList "/c '$($env:JB_DEVELOPER_PATH)\scripts\ant\dal.bat'"
+        Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$($env:JB_DEVELOPER_PATH)\profile\scripts\ant\dal.bat`""
     }
     elseif ($target -eq "c2c")
     {
-        Start-Process -FilePath "cmd.exe" -ArgumentList "/c '$($env:JB_DEVELOPER_PATH)\scripts\ant\c2c.bat'"
+        Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$($env:JB_DEVELOPER_PATH)\profile\scripts\ant\c2c.bat`""
     }
     elseif ($target -eq "utils")
     {
-        Start-Process -FilePath "cmd.exe" -ArgumentList "/c '$($env:JB_DEVELOPER_PATH)\scripts\ant\utils.bat'"
+        Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$($env:JB_DEVELOPER_PATH)\profile\scripts\ant\utils.bat`""
     }
     elseif ($target -eq "log")
     {
@@ -364,6 +377,7 @@ Function  Invoke-Build-Target ($target)
     elseif ($null -eq $target )
     {
         Write-Output "No build target provided."
+        Write-Output "Target '$target' not recognized. Do you want to copy: C:\Source\ETSDK\trunk\ant\1.8.2\bin\ant.bat **TARGET** -DbuildNumber=1245 -DMAJOR=12 -DMINOR=0 -DRELEASE=1"
     }
     else 
     {
