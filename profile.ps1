@@ -218,6 +218,7 @@ Function  Invoke-D5 ($cmd, $time, $media_type, $recording_type)
     if ($cmd -eq 'log')
     {
         & "C:\Program Files (x86)\Envision Telephony\Baretailpro\baretailpro.exe"  "C:\Users\JonathanBuchner\AppData\Roaming\Envision Telephony\D4\logs\D4.log"
+        & "C:\Program Files (x86)\Envision Telephony\Baretailpro\baretailpro.exe"  "C:\Program Files (x86)\Envision Telephony\Envision API\EnvsionAPI.log"
     }
 
     #Stop recording
@@ -377,7 +378,8 @@ Function  Invoke-Build-Target ($target)
     elseif ($null -eq $target )
     {
         Write-Output "No build target provided."
-        Write-Output "Target '$target' not recognized. Do you want to copy: C:\Source\ETSDK\trunk\ant\1.8.2\bin\ant.bat **TARGET** -DbuildNumber=1245 -DMAJOR=12 -DMINOR=0 -DRELEASE=1"
+        Write-Output "Do you want to copy:"
+        Write-Output "C:\Source\ETSDK\trunk\ant\1.8.2\bin\ant.bat **TARGET** -DbuildNumber=1245 -DMAJOR=12 -DMINOR=0 -DRELEASE=1"
     }
     else 
     {
