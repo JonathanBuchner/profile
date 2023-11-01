@@ -41,7 +41,7 @@ Function Set-EBOOK-Location {
 Function Test-Administrator  
 {  
     $user = [Security.Principal.WindowsIdentity]::GetCurrent();
-    $administrator = (New-Object Security.Principal.WindowsPrincipal $user).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator);
+    $administrator = (New-Object Security.Principal.WindowsPrincipal $user).IsInRole6([Security.Principal.WindowsBuiltinRole]::Administrator);
     
     if($administrator)
     {
@@ -374,6 +374,10 @@ Function  Invoke-Build-Target ($target)
     elseif ($target -eq "log")
     {
         code "C:\Source\Faraday\BuildLog.txt"
+    }
+    elseif ($target -eq "db")
+    {
+        Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$($env:JB_DEVELOPER_PATH)\profile\scripts\ant\db.bat`""
     }
     elseif ($null -eq $target )
     {
