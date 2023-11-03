@@ -41,7 +41,7 @@ Function Set-EBOOK-Location {
 Function Test-Administrator  
 {  
     $user = [Security.Principal.WindowsIdentity]::GetCurrent();
-    $administrator = (New-Object Security.Principal.WindowsPrincipal $user).IsInRole6([Security.Principal.WindowsBuiltinRole]::Administrator);
+    $administrator = (New-Object Security.Principal.WindowsPrincipal $user).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator);
     
     if($administrator)
     {
