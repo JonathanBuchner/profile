@@ -123,6 +123,14 @@ Function Invoke-E10b
     Set-Location "C:\Developer\learn\harvard\CSCI E-10B\src";
 }
 
+Set-Alias -Name hotkeys -Value Invoke-Hotkeys
+
+Function Invoke-Hotkeys
+{
+    Invoke-Item "$($env:JB_DEVELOPER_PATH)\profile\scripts\hotkeys\csharp.ahk"
+    Write-Output "Hotkeys loaded.  Let's fucking go."
+}
+
 Set-Alias -Name life -Value Invoke-Life
 Function Invoke-Life
 {
