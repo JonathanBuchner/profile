@@ -123,12 +123,23 @@ Function Invoke-E10b
     Set-Location "C:\Developer\learn\harvard\CSCI E-10B\src";
 }
 
+Set-Alias -Name e22 -Value Invoke-E22
+
+Function Invoke-E22
+{
+    Set-Location "C:\Developer\learn\harvard\CSCI E-22 Data Structures";
+}
+
 Set-Alias -Name hotkeys -Value Invoke-Hotkeys
 
-Function Invoke-Hotkeys
+Function Invoke-Hotkeys($cmd)
 {
-    Invoke-Item "$($env:JB_DEVELOPER_PATH)\profile\scripts\hotkeys\csharp.ahk"
-    Write-Output "Hotkeys loaded.  Let's fucking go."
+    if ($cmd -eq 'csharp' -or $cmd -eq 'c#')
+    {
+        Write-Output "Loading csharp hotkeys."
+        Invoke-Item "$($env:JB_DEVELOPER_PATH)\profile\scripts\hotkeys\csharp.ahk"
+    }
+    Write-Output "Let's fucking go."
 }
 
 Set-Alias -Name life -Value Invoke-Life
