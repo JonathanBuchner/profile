@@ -23,19 +23,30 @@ Function Set-ICloud-Location {
     Set-Location "$env:JB_ICLOUD_PATH";
 }
 
-Set-Alias -Name leap -Value Set-Leap-Location
-Function Set-Leap-Location {
-    Set-Location "$env:JB_LEAP_PATH";
-}
 
 Set-Alias -Name e20 -Value Set-E20-Location
 Function Set-E20-Location {
     Set-Location "$env:JB_E20_PATH";
 }
 
+Set-Alias -Name e22 -Value Set-E22-Location
+Function Set-E22-Location {
+    Set-Location "C:\Developer\learn\harvard\CSCI E-22 Data Structures\problems";
+}
+
+Set-Alias -Name mem -Value Set-E22-Location
+Function Set-mem-Location {
+    Set-Location "C:\Developer\learn\memorize\Book";
+}
+
 Set-Alias -Name ebook -Value Set-EBOOK-Location
 Function Set-EBOOK-Location {
     Set-Location "$env:JB_EBOOK_PATH";
+}
+
+Set-Alias -Name as -Value Set-AdvancedSearch-Location
+Function Set-AdvancedSearch-Location {
+    Set-Location "C:\Source\Faraday\src\clients\SharedUI\AdvancedTextSearch"
 }
 
 Function Test-Administrator  
@@ -120,7 +131,7 @@ Set-Alias -Name e10b -Value Invoke-E10b
 
 Function Invoke-E10b
 {
-    Set-Location "C:\Developer\learn\harvard\CSCI E-10B\src";
+    Set-Location "C:\Developer\learn\harvard\CSCI E-10B Java II\src";
 }
 
 Set-Alias -Name e22 -Value Invoke-E22
@@ -398,9 +409,18 @@ Function  Invoke-Build-Target ($target)
     {
         Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$($env:JB_DEVELOPER_PATH)\profile\scripts\ant\db.bat`""
     }
+    elseif ($target -eq "ce")
+    {
+        Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$($env:JB_DEVELOPER_PATH)\profile\scripts\ant\codeeditor.bat`""
+    }
+    elseif ($target -eq "dev")
+    {
+        Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$($env:JB_DEVELOPER_PATH)\profile\scripts\ant\shared.bat`""
+    }
     elseif ($null -eq $target )
     {
         Write-Output "No build target provided."
+        Write-Output "Targets: player, dal, c2c, utils, log, db, ce"
         Write-Output "Do you want to copy:"
         Write-Output "C:\Source\ETSDK\trunk\ant\1.8.2\bin\ant.bat **TARGET** -DbuildNumber=1245 -DMAJOR=12 -DMINOR=0 -DRELEASE=1"
     }
