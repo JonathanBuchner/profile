@@ -34,7 +34,7 @@ Function Set-E22-Location {
     Set-Location "C:\Developer\learn\harvard\CSCI E-22 Data Structures\problems";
 }
 
-Set-Alias -Name mem -Value Set-E22-Location
+Set-Alias -Name mem -Value Set-mem-Location
 Function Set-mem-Location {
     Set-Location "C:\Developer\learn\memorize\Book";
 }
@@ -47,6 +47,11 @@ Function Set-EBOOK-Location {
 Set-Alias -Name as -Value Set-AdvancedSearch-Location
 Function Set-AdvancedSearch-Location {
     Set-Location "C:\Source\Faraday\src\clients\SharedUI\AdvancedTextSearch"
+}
+
+Set-Alias -Name shared -Value Set-Shared-Location
+Function Set-Shared-Location {
+    Set-Location "C:\Source\Faraday\src\clients\SharedDll"
 }
 
 Function Test-Administrator  
@@ -420,7 +425,7 @@ Function  Invoke-Build-Target ($target)
     elseif ($null -eq $target )
     {
         Write-Output "No build target provided."
-        Write-Output "Targets: player, dal, c2c, utils, log, db, ce"
+        Write-Output "Targets: player, dal, c2c, utils, log, db, ce, dev"
         Write-Output "Do you want to copy:"
         Write-Output "C:\Source\ETSDK\trunk\ant\1.8.2\bin\ant.bat **TARGET** -DbuildNumber=1245 -DMAJOR=12 -DMINOR=0 -DRELEASE=1"
     }
