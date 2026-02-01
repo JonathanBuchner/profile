@@ -4,7 +4,7 @@
 #Add folder to visual studios to path
 
 #Environmental Variables
-# JB_USER_PATH C:\Users\maket
+# c C:\Users\maket
 # JB_DEVELOPER_PATH C:\Developer
 # JB_ICLOUD_PATH: 
 # JB_LEAP_PATH
@@ -12,6 +12,19 @@
 #Test / Removed
 
 #Set execution policy - https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.3
+
+# Short term
+Set-Alias -Name logins -Value List-Logins
+Function List-Logins {
+    Write-Output "job3767@cscie28.dce.harvard.edu"
+    Write-Output "\n\n"
+}
+
+Set-Alias -Name pset1 -Value Execute-PSET1
+Function Execute-PSET1 {
+    Set-Location "C:\Developer\cs61\cs61-f25-psets-JonathanBuchner\pset1";
+    wsl ../cs61-run-docker
+}
 
 Set-Alias -Name dev -Value Set-Dev-Location
 Function Set-Dev-Location {
@@ -24,14 +37,9 @@ Function Set-ICloud-Location {
 }
 
 
-Set-Alias -Name e20 -Value Set-E20-Location
-Function Set-E20-Location {
-    Set-Location "$env:JB_E20_PATH";
-}
-
-Set-Alias -Name e22 -Value Set-E22-Location
-Function Set-E22-Location {
-    Set-Location "C:\Developer\learn\harvard\CSCI E-22 Data Structures\problems";
+Set-Alias -Name e28 -Value Set-E28-Location
+Function Set-E28-Location {
+    Set-Location "C:\Developer\learn\harvard\CSCI E-28 Unix Programming";
 }
 
 Set-Alias -Name mem -Value Set-mem-Location
@@ -106,9 +114,15 @@ Function Invoke-GitHub
 Set-Alias -Name profile -Value Update-profile
 Function Update-profile
 {
-    Invoke-Item "$($env:JB_USER_PATH)\Documents\WindowsPowerShell"
-    Invoke-Item "$($env:JB_DEVELOPER_PATH)\profile\"
     code "$($env:JB_DEVELOPER_PATH)\profile\profile.ps1"
+}
+
+Set-Alias -Name profile-copy -Value Copy-profile
+Function Copy-Profile {
+    $destination = "$($env:JB_USER_PATH)\Documents\WindowsPowerShell\profile.ps1"
+    $source = "$($env:JB_DEVELOPER_PATH)\profile\profile.ps1"
+
+    Copy-Item -Path $source -Destination $destination -Force
 }
 
 # Open AppData folder
