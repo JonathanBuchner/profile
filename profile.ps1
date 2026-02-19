@@ -17,7 +17,23 @@
 Set-Alias -Name logins -Value List-Logins
 Function List-Logins {
     Write-Output "job3767@cscie28.dce.harvard.edu"
-    Write-Output "\n\n"
+    Write-Output ""
+}
+
+Set-Alias -Name ssh-e28 -Value Login-SSH-E28
+Function Login-SSH-E28 () {
+    $login = "job3767"
+    $server = "cscie28.dce.harvard.edu"
+
+    ssh $login@$server
+}
+
+Set-Alias -Name e28 -Value Code-E28
+Function Code-E28 () {
+    $login = "job3767"
+    $server = "cscie28.dce.harvard.edu"
+    
+    code --remote ssh-remote+$login@$server /home/users/$login/psets
 }
 
 Set-Alias -Name pset1 -Value Execute-PSET1
@@ -34,12 +50,6 @@ Function Set-Dev-Location {
 Set-Alias -Name icloud -Value Set-ICloud-Location
 Function Set-ICloud-Location {
     Set-Location "$env:JB_ICLOUD_PATH";
-}
-
-
-Set-Alias -Name e28 -Value Set-E28-Location
-Function Set-E28-Location {
-    Set-Location "C:\Developer\learn\harvard\CSCI E-28 Unix Programming";
 }
 
 Set-Alias -Name mem -Value Set-mem-Location
