@@ -28,7 +28,7 @@ Function Login-SSH-E28 () {
     ssh $login@$server
 }
 
-Set-Alias -Name e28 -Value Code-E28
+Set-Alias -Name code-e28 -Value Code-E28
 Function Code-E28 () {
     $login = "job3767"
     $server = "cscie28.dce.harvard.edu"
